@@ -43,6 +43,8 @@ public class AuthServlet extends HttpServlet {
             try {
                 UserDTO user = userService.authenticate(username, password);
                 SecurityContext.setPrincipal(user);
+                response.setContentType("application/json");
+                response.getWriter().println(JsonbBuilder.create().toJson(user));
             }catch (RuntimeException e){
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Bad login credentials");
             }
