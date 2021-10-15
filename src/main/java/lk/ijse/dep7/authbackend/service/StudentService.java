@@ -41,8 +41,9 @@ public class StudentService {
         List<StudentDTO> students = new ArrayList<>();
 
         try {
-            Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT id, name, address FROM student");
+            PreparedStatement stm = connection.prepareStatement("SELECT id, name, address FROM student WHERE username=?");
+            stm.setString(1, SecurityContext.getPrincipal().getUsername());
+            ResultSet rst = stm.executeQuery();
 
             while (rst.next()) {
                 students.add(new StudentDTO(String.format("SID-%03d", rst.getInt("id")),

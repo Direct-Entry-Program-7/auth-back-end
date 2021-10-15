@@ -18,17 +18,10 @@ public class StudentServlet extends HttpServlet {
     private DataSource dataSource;
 
     @Override
-    public void init() throws ServletException {
-        try {
-            System.out.println(dataSource.getConnection());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Do GET");
+
+
+
     }
 
     @Override
