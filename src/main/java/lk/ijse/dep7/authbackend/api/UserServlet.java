@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(name = "UserServlet", value = "/users")
+@WebServlet(name = "UserServlet", value = "/users", loadOnStartup = 0)
 public class UserServlet extends HttpServlet {
 
     @Resource(name = "java:comp/env/jdbc/cp")

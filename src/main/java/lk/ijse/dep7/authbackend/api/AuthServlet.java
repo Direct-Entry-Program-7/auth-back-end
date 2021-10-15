@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(name = "AuthServlet", value = "/authenticate")
+@WebServlet(name = "AuthServlet", value = "/authenticate", loadOnStartup = 0)
 public class AuthServlet extends HttpServlet {
 
     @Resource(name = "java:comp/env/jdbc/cp")
