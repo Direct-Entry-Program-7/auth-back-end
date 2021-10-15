@@ -10,8 +10,10 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StudentServiceTest {
 
@@ -23,7 +25,7 @@ class StudentServiceTest {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dep7_auth_sms", "root", "mysql");
         studentService = new StudentService(connection);
-        SecurityContext.setPrincipal(new UserDTO("admin","admin", "Administrator"));
+        SecurityContext.setPrincipal(new UserDTO("admin", "admin", "Administrator"));
     }
 
     @AfterAll
@@ -35,5 +37,13 @@ class StudentServiceTest {
     void saveStudent() {
         String studentId = studentService.saveStudent(new StudentDTO("Pethum", "Galle"));
         assertTrue(studentId.matches("^SID-\\d{3}$"));
+    }
+
+    @Test
+    void getAllStudents() {
+        assertDoesNotThrow(() -> {
+            List<StudentDTO> students = studentService.getAllStudents();
+            students.forEach(System.out::println);
+        });
     }
 }

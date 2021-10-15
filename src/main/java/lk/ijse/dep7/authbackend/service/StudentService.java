@@ -4,7 +4,9 @@ import lk.ijse.dep7.authbackend.dto.StudentDTO;
 import lk.ijse.dep7.authbackend.security.SecurityContext;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class StudentService {
 
@@ -36,7 +38,24 @@ public class StudentService {
     }
 
     public List<StudentDTO> getAllStudents(){
-        return null;
+
+        List<StudentDTO> students = new ArrayList<>();
+
+        try {
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery("SELECT id, name, address FROM student");
+
+            while(rst.next()){
+                students.add(new StudentDTO(String.format("SID-%03d",rst.getInt("id")),
+                        rst.getString("name"),
+                        rst.getString("address")));
+            }
+
+            return students;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }
