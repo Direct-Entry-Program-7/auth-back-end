@@ -1,6 +1,7 @@
 package lk.ijse.dep7.authbackend.service;
 
 import lk.ijse.dep7.authbackend.dto.StudentDTO;
+import lk.ijse.dep7.authbackend.security.SecurityContext;
 
 import java.sql.*;
 import java.util.List;
@@ -19,7 +20,7 @@ public class StudentService {
             PreparedStatement stm = connection.prepareStatement("INSERT INTO student (name, address, username) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
             stm.setString(1, student.getName());
             stm.setString(2, student.getAddress());
-//            stm.setString(3, student.getName());      Todo: Inject username somehow
+            stm.setString(3, SecurityContext.getPrincipal().getUsername());
 
             if (stm.executeUpdate() == 1){
                 ResultSet rst = stm.getGeneratedKeys();
