@@ -18,7 +18,8 @@ public class StudentService {
     public String saveStudent(StudentDTO student) {
 
         try {
-            PreparedStatement stm = connection.prepareStatement("INSERT INTO student (name, address, username) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stm = connection.prepareStatement("INSERT INTO student (name, address, username) VALUES (?,?,?)",
+                    Statement.RETURN_GENERATED_KEYS);
             stm.setString(1, student.getName());
             stm.setString(2, student.getAddress());
             stm.setString(3, SecurityContext.getPrincipal().getUsername());
