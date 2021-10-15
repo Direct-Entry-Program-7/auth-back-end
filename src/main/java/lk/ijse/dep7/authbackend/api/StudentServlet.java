@@ -33,9 +33,6 @@ public class StudentServlet extends HttpServlet {
 
         try (Connection connection = dataSource.getConnection()) {
 
-            /* Todo: remove in the future */
-            SecurityContext.setPrincipal(new UserService(connection).authenticate("admin", "admin"));
-
             StudentService studentService = new StudentService(connection);
             List<StudentDTO> students = studentService.getAllStudents();
 
